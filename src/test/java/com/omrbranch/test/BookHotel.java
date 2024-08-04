@@ -60,18 +60,8 @@ public class BookHotel extends BaseClass {
 		elementClickT("Late Check-in");
 		elementSendKeys(locatorByXpath("//android.widget.EditText[@content-desc='TextInput']"), "Veg Only");
 		elementClick("book_hotel_next_button");
-		sleep(10000);
-		elementClick(locatorByXpath(
-				"//android.widget.TextView[@text='UPI']/parent::android.view.View/parent::android.view.View"));
-		sleep();
-//		elementSendKeysByJs("upi_id", "lkjhgf");
-//		elementClick("upi_id");
-//		elementSendKeys(locatorByXpath("//android.widget.EditText"), "seleniumtraining@vbc");
-//		elementSendKeys(xpathForResource("upi_id"), "seleniumtraining@vbc");
-		elementClickT("Submit");
-		sleep();
-//		System.out.println(
-//				"Booking Id : " + (elementGetText(locatorByXpath("(//android.widget.TextView)[4]")).split(" "))[0]);
+		
+		
 	}
 
 }

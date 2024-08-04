@@ -2,8 +2,8 @@ package com.omrbranch.test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.omrbranch.base.BaseClass;
@@ -60,13 +60,27 @@ public class AppLaunch extends BaseClass {
 		elementClick(locatorByXpath("//*[@text='Late Check-in']"));
 		elementSendKeys(locatorByXpath("//android.widget.EditText[@content-desc='TextInput']"), "Veg Only");
 		elementClick(locatorByXpath("//*[@resource-id='book_hotel_next_button']"));
-		elementClick(locatorByXpath(
-				"//android.webkit.WebView[@text=\"- Thoraipakkam OMR Branch\"]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]"));
-		elementSendKeys(locatorByXpath("//android.widget.EditText"), "seleniumtraining@vbc");
+		explicitWaitClick(locatorByXpath("//*[@text='Credit/Debit/ATM Card']"));
+		String context = driver.getContext();
+		Set<String> contextHandles = driver.getContextHandles();
+		System.out.println(contextHandles);
+		for (String string : contextHandles) {
+			if (!context.equals(string)) {
+				driver.context(string);
+			}
+		}
+		elementClick(locatorByXpath("//*[@text='Credit/Debit/ATM Card']"));
+		elementClick(locatorByXpath("//div[@class='credit-card pm']"));
+		elementDdnVisibleText(locatorByXpath("//select[@id='payment_type']"), "Debit Card");
+		elementDdnVisibleText(locatorByXpath("//select[@id='card_type']"), "Visa");
+		elementSendKeys(locatorByXpath("//input[@id='card_no']"), "5555555555552222");
+		elementSendKeys(locatorByXpath("//input[@id='card_name']"), "Srinivasu");
+		elementDdnVisibleText(locatorByXpath("//select[@id='card_month']"), "2025");
+		elementDdnVisibleText(locatorById("card_year"), "July");
+		elementSendKeys(locatorByXpath("//input[@id='cvv']"), "123");
+		driver.context("NATIVE_APP");
 		elementClick(locatorByXpath("//*[@text='Submit']"));
-		sleep();
-		System.out.println(
-				"Booking Id : " + (elementGetText(locatorByXpath("(//android.widget.TextView)[4]")).split(" "))[0]);
+//		
 
 	}
 

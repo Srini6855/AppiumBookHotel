@@ -15,17 +15,15 @@ import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.ElementOption;
 
 public class BaseClass {
 
 	static DesiredCapabilities caps;
-	static AndroidDriver driver;
+	protected static AndroidDriver driver;
 
 	public static DesiredCapabilities addDesiredCapabilities(String value1, String value2, String value3, String value4,
 			String value5, String value6) {
@@ -50,6 +48,10 @@ public class BaseClass {
 
 	public static WebElement locatorByXpath(String data) {
 		return driver.findElement(By.xpath(data));
+	}
+	
+	public static WebElement locatorById(String data) {
+		return driver.findElement(By.id(data));
 	}
 
 	public static String elementGetText(WebElement elemnet) {
@@ -90,6 +92,11 @@ public class BaseClass {
 	public static void elementClick(WebElement element) {
 		explicitWait(element);
 		element.click();
+	}
+
+	public static void explicitWaitClick(WebElement element) {
+		WebDriverWait driverWait = new WebDriverWait(driver, Duration.ofSeconds(60));
+		driverWait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public static void elementClick(String resource_id) {
@@ -157,5 +164,12 @@ public class BaseClass {
 
 		driver.perform(Collections.singletonList(sequence));
 	}
+	
+	 public static void elementDdnVisibleText(WebElement element, String data) {
+	        explicitWait(element);
+	        Select select = new Select(element);
+	        select.selectByVisibleText(data);
+	    }
+
 
 }
